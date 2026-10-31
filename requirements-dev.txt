@@ -1,0 +1,9 @@
+# Development / test dependencies
+# Install:
+#   python -m pip install -r requirements-dev.txt
+
+-r requirements.txt
+
+pytest>=8,<10
+pytest-qt>=4.4,<5
+ruff>=0.6

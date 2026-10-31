@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+build/
+dist/
+*.spec
+*.spec.bak
+
+# Local configuration and secrets
+config.toml
+.env
+.env.*
+!.env.example
+
+# Runtime data
+*.log
+logs/
+snapanswer-data/
+.cache/
+.tmp/
+*.png
+!docs/*.png
+!assets/*.png
+
+# pip temporary build directories
+pip-build-*/
+pip-install-*/
+pip-unpack-*/
+pip-ephem-wheel-cache-*/
+pip-metadata-*/
+pip-build-tracker-*
+
+# Tooling
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

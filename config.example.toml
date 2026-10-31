@@ -1,0 +1,81 @@
+# SnapAnswer 绀轰緥閰嶇疆
+#
+# 澶嶅埗涓?config.toml 鍚庝慨鏀癸紝鎴栫洿鎺ュ湪搴旂敤鐨勩€岃缃€嶄腑濉啓銆?# 浠撳簱鏍圭洰褰曠殑 config.toml 宸茶 .gitignore 蹇界暐锛屼笉浼氳鎻愪氦銆?# 娉ㄦ剰锛氫笉瑕佹妸鐪熷疄 API Key 鎻愪氦鍒?GitHub锛屾帹鑽愪娇鐢ㄧ幆澧冨彉閲忋€?#
+# DeepSeek:   https://api.deepseek.com/v1       deepseek-flash
+# OpenAI:     https://api.openai.com/v1         gpt-4o-mini
+# Ollama:     http://127.0.0.1:11434/v1         qwen2.5:7b
+# LM Studio:  http://127.0.0.1:1234/v1          浣犲姞杞界殑妯″瀷鍚?
+[app]
+# pynput 璇硶锛涗繚瀛樿缃悗鑷姩閲嶆柊娉ㄥ唽
+hotkey_scan = "<ctrl>+<alt>+q"
+hotkey_toggle_continuous = "<ctrl>+<alt>+c"
+hotkey_show = "<ctrl>+<alt>+s"
+
+# 杩炵画鎵弿锛氭閫変竴娆″悗閿佸畾鍖哄煙锛屾娴嬪埌棰樼洰鍙樺寲鏃惰嚜鍔ㄩ噸鏂颁綔绛?continuous = false
+continuous_interval_sec = 2.0
+
+# 杩炵画妯″紡涓嬶紝姣忔绛旀鐢熸垚鍚庤嚜鍔ㄩ噸鏂版埅鍥惧苟 OCR 澶嶆牳鍚屼竴鍖哄煙銆?# 鏂版枃鏈笌涓婃棰樼洰鐩镐技搴︿綆浜?verify_similarity 鏃讹紝鎵嶄細鍐嶆璇锋眰妯″瀷浣滅瓟銆?verify_after_answer = true
+verify_delay_sec = 1.2
+# 1.00 = 鍙鏂囨湰鏈夊樊寮傚氨閲嶇瓟锛?.95 = 蹇界暐灏戦噺 OCR 鍣０
+verify_similarity = 0.95
+
+# 鍦ㄩ攣瀹氬尯鍩熷娌挎樉绀洪紶鏍囧彲绌块€忕殑楂樹寒杈规
+highlight_region = false
+
+# 鎵嬪姩妗嗛€夊墠鍏堥殣钘忔诞绐楋紝閬垮厤娴獥琚埅杩?OCR 鍖哄煙
+hide_on_capture = true
+always_on_top = true
+opacity = 0.97
+capture_delay_ms = 160
+# 娴獥瀹介珮锛堜篃鍙嫋鍔ㄥ彸涓嬭鎵嬫焺璋冩暣锛?window_width = 540
+window_height = 460
+
+[ocr]
+# 鐩墠鏀寔 rapidocr锛堟湰鍦?ONNX锛屾棤闇€鑱旂綉锛屼篃鏃犻渶瀹夎 Tesseract锛?engine = "rapidocr"
+# 浣庝簬璇ョ疆淇″害鐨勬枃瀛椾細琚涪寮?min_confidence = 0.35
+upscale_small = true
+max_side = 2600
+padding = 8
+
+[llm]
+# 蹇呴』鏄?OpenAI Chat Completions 鍏煎鎺ュ彛鐨?base URL锛堥€氬父浠?/v1 缁撳熬锛?base_url = "https://api.deepseek.com/v1"
+# 鐣欑┖鍒欒鍙?api_key_env 鎸囧畾鐨勭幆澧冨彉閲忥紝鍐嶅洖閫€鍒?SNAPANSWER_API_KEY
+api_key = ""
+api_key_env = "DEEPSEEK_API_KEY"
+model = "deepseek-flash"
+temperature = 0.2
+max_tokens = 1400
+timeout_sec = 60.0
+stream = true
+# 璇锋眰鏈嶅姟绔繑鍥?token usage锛涗笉鏀寔 stream_options 鐨勬湇鍔＄浼氳嚜鍔ㄩ噸璇曞苟鏀圭敤浼扮畻
+request_usage = true
+
+# 鎸夐渶鑷畾涔夐澶栬姹傚ご锛屼緥濡?OpenRouter 鐨?Referer銆?# [llm.headers]
+# "HTTP-Referer" = "https://github.com/Mu-Jiji/snapanswer"
+# "X-Title" = "SnapAnswer"
+
+system_prompt = """浣犳槸涓€浣嶄弗璋ㄣ€佺畝娲佺殑绛旈鍔╂墜銆傜敤鎴蜂細缁欎綘涓€娈电敱 OCR 璇嗗埆寰楀埌鐨勯鐩枃鏈紝鍏朵腑鍙兘澶规潅璇嗗埆閿欒銆佹崲琛屾垨澶氫綑瀛楃銆?
+璇锋寜浠ヤ笅瑕佹眰鍥炵瓟锛?1. 鍏堝垽鏂鎰忓苟绾犳鏄庢樉鐨?OCR 閿欒锛屽啀浣滅瓟銆?2. 绗竴琛屼互銆岀瓟妗堬細銆嶅紑澶达紝鐩存帴缁欏嚭鏈€缁堢瓟妗堬紱閫夋嫨棰樺啓鍑洪€夐」瀛楁瘝鍜屽唴瀹广€?3. 绌轰竴琛屽悗鍐欍€岃В鏋愶細銆嶏紝鐢?2-5 鍙ヨ瘽璇存槑鍏抽敭姝ラ鎴栫悊鐢便€?4. 璁＄畻棰樹繚鐣欏繀瑕佹楠わ紝鏈€缁堢粨鏋滄斁鍦ㄧ瓟妗堜腑銆?5. 濡傛灉棰樼洰缂哄皯鍏抽敭鏉′欢锛屾槑纭鏄庣己灏戜粈涔堬紝涓嶈缂栭€犳潯浠躲€?6. 浣跨敤绠€浣撲腑鏂囷紱鍏紡鐢ㄦ竻鏅扮殑鏂囨湰鎴?LaTeX 琛屽唴鍐欐硶銆?""
+
+[usage]
+# 鏄惁鏄剧ず token/璐圭敤锛沝isplay_mode = "strip" 鏄剧ず鍦ㄦ诞绐椾笅鏂瑰乏瀵归綈锛堝浘浜岀孩妗嗕綅缃級锛?# "card" 鏄剧ず鍦ㄦ诞绐楀乏涓嬩晶鍗＄墖
+show_panel = false
+display_mode = "strip"
+currency = "CNY"
+
+# DeepSeek deepseek-flash 鍙傝€冧环锛堟瘡鐧句竾 tokens锛岀紦瀛樻湭鍛戒腑锛夛細
+# 楂樺嘲杈撳叆 2 鍏冦€佽緭鍑?8 鍏冿紱浣庤胺杈撳叆 1 鍏冦€佽緭鍑?4 鍏冦€?# 鑻ヤ娇鐢ㄥ叾浠栨ā鍨嬫垨缂撳瓨鍛戒腑浠凤紝璇锋寜鏈嶅姟鍟嗚璐归〉淇敼銆?input_per_million = 2.0
+output_per_million = 8.0
+off_peak_enabled = true
+off_peak_input_per_million = 1.0
+off_peak_output_per_million = 4.0
+
+# DeepSeek 鍖椾含鏃堕棿鍛ㄤ竴鑷冲懆浜?09:00-12:00銆?4:00-18:00 涓洪珮宄帮紱
+# 鍗堜紤銆佸懆鏈拰 off_peak_dates 涓殑鏃ユ湡鍏ㄥぉ浣庤胺銆?# 鎸夋湰鏈烘椂闂村垽鏂紱peak_start > peak_end 琛ㄧず璺ㄥ崍澶溿€?peak_start = "09:00"
+peak_end = "18:00"
+lunch_break_enabled = true
+lunch_start = "12:00"
+lunch_end = "14:00"
+peak_weekdays = [1, 2, 3, 4, 5]  # 1=鍛ㄤ竴 鈥?7=鍛ㄦ棩
+off_peak_dates = []              # 渚嬪 ["2026-10-01", "2026-10-02"]
+
